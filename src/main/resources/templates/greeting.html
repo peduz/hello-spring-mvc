@@ -1,12 +1,39 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+  <head>    
+    
+    <link rel="stylesheet" th:href="@{/css/application.css}">
+
     <title>Greeting</title> 
   </head>
   <body>
     <div>
       <h1 th:text="'Ciao ' + ${name} + '!'"/>
       <h2 th:text="'Sono le ore ' + ${time}"/>
+
     </div> 
+    <div>
+      <p th:text="'Il nome dello studente è ' + ${studente.getNome()}"></p>
+      <p th:text="|L'uomo si chiama ${studente.getNome()}|"></p>
+      <p th:text="|Il nome dello studente è ${studente.nome}|"></p>
+      <p>Il nome dello studente è [[${studente.nome}]]"</p>
+
+      <p th:text="${listaStudenti.get(2).nome}"></p>
+    </div>
+
+    <div th:object="${studente}">
+      <p th:text="*{luogoNascita}"></p>
+      <a href="www.lego.com" target="_blank"><img alt="logo" th:src="@{/img/download.png}" />Lego!</a>
+
+    </div>
+    
+    <div id="listaVuota" th:if="${listaStudenti.size() == 0}">
+      The list is empty
+    </div>
+    <div id="listaVuota" th:if="${listaStudenti.size() > 0}">
+      <ul>
+        <li th:each="s : ${listaStudenti}" th:text="|${s.nome} - ${s.cognome}|"></li>
+      </ul>
+    </div>
   </body>
 </html>
